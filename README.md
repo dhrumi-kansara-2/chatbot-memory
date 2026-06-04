@@ -70,11 +70,6 @@ The app opens at `http://localhost:8501` in your browser.
 
 ---
 
-## Live Demo
-
-[your-app-name.streamlit.app](https://your-app-name.streamlit.app)
-
- 
 
 ## Acknowledgements
 
