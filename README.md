@@ -2,11 +2,11 @@
 
 A simple AI chatbot built with Python, Groq, and Streamlit that remembers your entire conversation.
 
-## 💡 How Memory Works
+## How Memory Works
 
 LLMs have no built-in memory : they are stateless. Every time you send a message, the entire conversation history is sent to the API as a list of messages. The model reads all of it from scratch and replies in context. What feels like memory is just that growing list being passed on every call.
 
-## ✨ Features
+## Features
 
 - **Conversation memory** : the bot remembers everything you said in the session
 - **Streaming responses** : replies appear word by word in real time
@@ -18,7 +18,7 @@ LLMs have no built-in memory : they are stateless. Every time you send a message
 ---
  
 
-## 🚀 Getting Started
+## Getting Started
 
 ### 1. Clone the repo
 
@@ -74,7 +74,7 @@ The app opens at `http://localhost:8501` in your browser.
 
 ---
 
-## 🌐 Live Demo
+## Live Demo
 
 [your-app-name.streamlit.app](https://your-app-name.streamlit.app)
 
