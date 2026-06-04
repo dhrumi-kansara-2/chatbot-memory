@@ -5,7 +5,10 @@ import os
 
 load_dotenv()
 
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+api_key = st.secrets.get("GROQ_API_KEY") if hasattr(st, "secrets") else None
+api_key = api_key or os.getenv("GROQ_API_KEY")
+
+client = Groq(api_key=api_key)
 
 st.set_page_config(page_title="Chatbot", page_icon="")
 st.title("Chatbot")
@@ -67,6 +70,7 @@ if user_input:
         placeholder=st.empty()
         reply=""
 
+    try:
         stream=client.chat.completions.create(
             model="llama-3.1-8b-instant",
             messages=[{"role":"system","content":system_prompt}]+st.session_state.messages[-max_messages:],
@@ -77,7 +81,10 @@ if user_input:
         for chunk in stream:
             token = chunk.choices[0].delta.content or ""
             reply +=token
-            placeholder.write(reply)
+            placeholder.write(reply) 
+    except Exception as e:
+        reply = f"Something went wrong: {str(e)}"
+        placeholder.error(reply)
 
     st.session_state.messages.append({"role":"assistant","content": reply})
     total_tokens=sum(len(m["content"].split()) for m in st.session_state.messages)
