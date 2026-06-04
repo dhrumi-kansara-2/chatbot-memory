@@ -1,8 +1,4 @@
-# 🤖 Chatbot with Conversation Memory
-
-A simple AI chatbot built with Python, Groq, and Streamlit that remembers your entire conversation.
-
-## How Memory Works
+# Chatbot with Conversation Memory
 
 LLMs have no built-in memory : they are stateless. Every time you send a message, the entire conversation history is sent to the API as a list of messages. The model reads all of it from scratch and replies in context. What feels like memory is just that growing list being passed on every call.
 
@@ -63,7 +59,7 @@ The app opens at `http://localhost:8501` in your browser.
 
 ---
 
-## 🎮 How to Use
+## How to Use
 
 | Setting | What it does |
 |---|---|
