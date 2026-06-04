@@ -11,6 +11,7 @@ st.set_page_config(page_title="Chatbot", page_icon="")
 st.title("Chatbot")
 
 with st.sidebar: 
+
     st.title("Settings")
 
     system_prompt=st.text_area(
@@ -29,10 +30,23 @@ with st.sidebar:
                           )
     st.caption("Use low values for factual tasks, higher for creative writing.")
 
+    max_messages=st.slider(
+        "Max messages to remember",
+        min_value=2,
+        max_value=20,
+        value=10,
+        step=2
+    )
+    st.caption("Older messages beyond this limit will be forgotten.")
+
     
     if st.button("Clear chat history"):
         st.session_state.messages=[]
         st.rerun()
+
+    st.divider()
+    st.markdown("**Usage**")
+    token_count=st.empty()
 
 if "messages" not in st.session_state:
     st.session_state.messages=[]
@@ -55,7 +69,7 @@ if user_input:
 
         stream=client.chat.completions.create(
             model="llama-3.1-8b-instant",
-            messages=[{"role":"system","content":system_prompt}]+st.session_state.messages,
+            messages=[{"role":"system","content":system_prompt}]+st.session_state.messages[-max_messages:],
             temperature=temperature,
             stream=True
         )
@@ -66,6 +80,8 @@ if user_input:
             placeholder.write(reply)
 
     st.session_state.messages.append({"role":"assistant","content": reply})
+    total_tokens=sum(len(m["content"].split()) for m in st.session_state.messages)
+    token_count.caption(f"Estimated tokens used: ~{total_tokens}")
 
 
 
